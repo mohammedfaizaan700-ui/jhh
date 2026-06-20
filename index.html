@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>Premium Car Rental</title>
+
+<style>
+
+body{
+
+    font-family: Arial;
+
+    margin:0;
+
+    background:#f2f2f2;
+
+}
+
+/* HERO */
+
+.hero{
+
+    background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+
+    url("https://images.unsplash.com/photo-1503376780353-7e6692767b70");
+
+    background-size:cover;
+
+    color:white;
+
+    text-align:center;
+
+    padding:80px 20px;
+
+}
+
+.hero h1{ font-size:45px; }
+
+/* FORM */
+
+.formBox{
+
+    background:white;
+
+    width:350px;
+
+    margin:20px auto;
+
+    padding:20px;
+
+    border-radius:10px;
+
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+
+}
+
+input, select{
+
+    width:100%;
+
+    padding:10px;
+
+    margin:8px 0;
+
+}
+
+/* CAR GRID */
+
+.container{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    justify-content:center;
+
+    gap:15px;
+
+    margin-bottom:30px;
+
+}
+
+.card{
+
+    width:260px;
+
+    background:white;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+
+    text-align:center;
+
+}
+
+.card img{
+
+    width:100%;
+
+    height:170px;
+
+    object-fit:cover;
+
+}
+
+.price{
+
+    color:green;
+
+    font-weight:bold;
+
+}
+
+.btn{
+
+    background:green;
+
+    color:white;
+
+    border:none;
+
+    padding:10px;
+
+    margin:10px;
+
+    cursor:pointer;
+
+    border-radius:5px;
+
+}
+
+.btn:hover{
+
+    background:darkgreen;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- HERO -->
+
+<div class="hero">
+
+<h1>Premium Car Rental</h1>
+
+<p>Book your dream car instantly via WhatsApp</p>
+
+</div>
+
+<!-- FORM -->
+
+<div class="formBox">
+
+<h3>Booking Form</h3>
+
+<input type="text" id="name" placeholder="Your Name">
+
+<select id="car">
+
+    <option value="Porsche|50000">Porsche - ₹50000/day</option>
+
+    <option value="BMW|18000">BMW - ₹18000/day</option>
+
+    <option value="Mustang|36000">Mustang - ₹36000/day</option>
+
+    <option value="Ferrari|70000">Ferrari - ₹70000/day</option>
+
+    <option value="Ford|8000">Ford - ₹8000/day</option>
+
+    <option value="McLaren|70000">McLaren - ₹70000/day</option>
+
+    <option value="Lamborghini|72500">Lamborghini - ₹72500/day</option>
+
+</select>
+
+<label>From Date</label>
+
+<input type="date" id="fromDate">
+
+<label>To Date</label>
+
+<input type="date" id="toDate">
+
+<button class="btn" onclick="bookNow()">Book Now</button>
+
+<p id="result"></p>
+
+</div>
+
+<!-- CARS DISPLAY (ORDER FIXED) -->
+
+<div class="container">
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70">
+
+<h3>Porsche</h3>
+
+<div class="price">₹50000/day</div>
+
+</div>
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1502877338535-766e1452684a">
+
+<h3>BMW</h3>
+
+<div class="price">₹18000/day</div>
+
+</div>
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8">
+
+<h3>Mustang</h3>
+
+<div class="price">₹36000/day</div>
+
+</div>
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1503736334956-4c8f8e92946d">
+
+<h3>Ferrari</h3>
+
+<div class="price">₹70000/day</div>
+
+</div>
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf">
+
+<h3>Ford</h3>
+
+<div class="price">₹8000/day</div>
+
+</div>
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1542362567-b07e54358753">
+
+<h3>McLaren</h3>
+
+<div class="price">₹70000/day</div>
+
+</div>
+
+<div class="card">
+
+<img src="https://images.unsplash.com/photo-1525609004556-c46c7d6cf023">
+
+<h3>Lamborghini</h3>
+
+<div class="price">₹72500/day</div>
+
+</div>
+
+</div>
+
+<script>
+
+function bookNow(){
+
+    let name = document.getElementById("name").value;
+
+    let carData = document.getElementById("car").value;
+
+    let from = document.getElementById("fromDate").value;
+
+    let to = document.getElementById("toDate").value;
+
+    if(!name || !from || !to){
+
+        alert("Please fill all fields");
+
+        return;
+
+    }
+
+    let [carName, price] = carData.split("|");
+
+    price = parseInt(price);
+
+    let start = new Date(from + "T00:00:00");
+
+    let end = new Date(to + "T00:00:00");
+
+    let diffTime = end.getTime() - start.getTime();
+
+    let days = Math.ceil(diffTime / (1000 * 3600 * 24)) + 1;
+
+    if(days <= 0){
+
+        alert("Please select valid dates");
+
+        return;
+
+    }
+
+    let total = days * price;
+
+    document.getElementById("result").innerHTML =
+
+    "Total Price: ₹" + total + " (" + days + " days)";
+
+    let phoneNumber = "918792646182";
+
+    let message =
+
+`🚗 Car Booking
+
+Name: ${name}
+
+Car: ${carName}
+
+From: ${from}
+
+To: ${to}
+
+Days: ${days}
+
+Price/Day: ₹${price}
+
+Total: ₹${total}`;
+
+    let url = "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(message);
+
+    window.open(url, "_blank");
+
+}
+
+</script>
+
+</body>
+
+</html>
